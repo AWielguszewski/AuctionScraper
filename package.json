@@ -6,9 +6,14 @@
   "dependencies": {
     "electron": "^1.6.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "electron": "^1.6.2",
+    "electron-rebuild": "^1.5.7"
+  },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "electron .",
+    "rebuild": ".\\node_modules\\.bin\\electron-rebuild.cmd"
   },
   "repository": {
     "type": "git",
