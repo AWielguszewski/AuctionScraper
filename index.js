@@ -1,6 +1,6 @@
-'use strict';
+'use strict'
 
-const { app, BrowserWindow } = require('electron')
+const { app, BrowserWindow, ipcMain } = require('electron')
 const path = require('path')
 const url = require('url')
 
@@ -49,3 +49,8 @@ app.on('activate', () => {
         createWindow()
     }
 })
+
+ipcMain.on('loadURL', (e,url)=>{
+    win.loadURL(url);
+})
+
