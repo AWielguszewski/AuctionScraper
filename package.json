@@ -1,0 +1,23 @@
+{
+  "name": "prz_scrapper",
+  "version": "0.0.0",
+  "description": "Web Scrapper",
+  "main": "index.js",
+  "dependencies": {
+    "electron": "^1.6.2"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AWielguszewski/PRz_Scrapper.git"
+  },
+  "author": "AWielguszewski <roftii@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/AWielguszewski/PRz_Scrapper/issues"
+  },
+  "homepage": "https://github.com/AWielguszewski/PRz_Scrapper#readme"
+}
