@@ -4,6 +4,7 @@
   "description": "Web Scrapper",
   "main": "index.js",
   "dependencies": {
+    "cheerio": "^0.22.0",
     "electron": "^1.6.2",
     "tinyreq": "^3.2.2"
   },
