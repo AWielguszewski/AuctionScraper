@@ -20,10 +20,24 @@ document.getElementById("search_btn").addEventListener("click", (e) => {
 
 function scrape(url) {
     return new Promise((resolve, reject) => {
-        req(url, (err, body) => {
+        req(url, (err, requestedPage) => {
+            function searchNodes(node) {
+                if ($(node).children().length) {
+                    console.log(`Children of '${$.html(node)}' :\n`);
+                    $(node).children().each((i,elem)=>{
+                        console.log(`#${i}: ${$.html(elem)}`);
+                        searchNodes(elem);
+                    })
+                    return;
+                }
+                console.log(`${$.html(node)} has no children`);
+            }
+
             if (err) { reject('error in an http request'); }
-            const $ = cheerio.load(body);
-            resolve($.html());
+            const $ = cheerio.load(requestedPage);
+
+            searchNodes($('body'));
+            //resolve($.html());
         });
     })
 }
@@ -31,6 +45,7 @@ function scrape(url) {
 function processPage(page) {
     //handle page contents
     console.log(page);
+    document.getElementById('append').innerHTML = page;
 }
 
 function errorHandler(error) {
