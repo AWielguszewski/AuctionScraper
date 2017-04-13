@@ -8,10 +8,24 @@ document.getElementById("search_btn").addEventListener("click", (e) => {
     e.preventDefault();
     const search_value = document.getElementById('txt_box').value;
     if (search_value) {
-        //promises
+        fadeOutSearchScreen()
+            .then((response) => {
+                //stuff
+            })
+            .catch((error) => {
+                //error
+            })
     }
     else { errorHandler('emptyvalue') }
 });
+
+function fadeOutSearchScreen() {
+    return new Promise((resolve, reject) => {
+        document.getElementById('search-group-wrapper').className = 'fadeout';
+        setTimeout(() => { document.body.innerHTML = ''; }, 500);
+        resolve('done');
+    })
+}
 
 function scrape(url) {
     return new Promise((resolve, reject) => {

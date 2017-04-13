@@ -23,7 +23,7 @@ function createWindow() {
     })
 
     win.loadURL(url.format({
-        pathname: path.join(__dirname, 'index.html'),
+        pathname: path.join(__dirname, 'search-screen.html'),
         protocol: 'file:',
         slashes: true
     }))
@@ -51,7 +51,8 @@ app.on('activate', () => {
     }
 })
 
-ipcMain.on('loadURL', (e,url)=>{
-    win.loadURL(url);
+ipcMain.on('loadURL', (e, url) => {
+    console.log('got msg');
+    win.loadURL('file:///' +__dirname + url);
 })
 

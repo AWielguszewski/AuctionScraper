@@ -5,12 +5,19 @@
 }
 
 
-.search-group-wrapper {
-  animation: fadeIn ease 2s;
-  -webkit-animation: fadeIn ease 2s;
-  -moz-animation: fadeIn ease 2s;
-  -o-animation: fadeIn ease 2s;
-  -ms-animation: fadeIn ease 2s;
+.fadeout {
+   visibility: hidden;
+   opacity: 0;
+   transition: visibility 0s 0.5s, opacity 0.5s ease;
+}
+
+/*FADE IN ANIMATION*/
+.fadein {
+  animation: fadeIn ease 1s;
+  -webkit-animation: fadeIn ease 1s;
+  -moz-animation: fadeIn ease 1s;
+  -o-animation: fadeIn ease 1s;
+  -ms-animation: fadeIn ease 1s;
 }
 
 @keyframes fadeIn{
@@ -57,7 +64,7 @@
     opacity:1;
   }
 }
-
+/*END    FADE IN ANIMATION*/
 
 
 /*LOGO INPUT CHECKBOX WRAPPER STYLES*/
