@@ -7,7 +7,7 @@ const cheerio = require('cheerio')
 document.getElementById("search_btn").addEventListener("click", (e) => {
     e.preventDefault();
     const search_value = document.getElementById('txt_box').value;
-    if (value) {
+    if (search_value) {
         //promises
     }
     else { errorHandler('emptyvalue') }
