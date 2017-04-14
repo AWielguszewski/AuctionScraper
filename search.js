@@ -10,20 +10,43 @@ document.getElementById("search_btn").addEventListener("click", (e) => {
     if (search_value) {
         fadeOutSearchScreen()
             .then((response) => {
-                //stuff
+                console.log(response);
+                return loadingScreen();
+            })
+            .then((response) => {
+                console.log(response);
             })
             .catch((error) => {
-                //error
-            })
+                console.log('Rejection: ' + error);
+            });
     }
     else { errorHandler('emptyvalue') }
 });
 
 function fadeOutSearchScreen() {
     return new Promise((resolve, reject) => {
-        document.getElementById('search-group-wrapper').className = 'fadeout';
-        setTimeout(() => { document.body.innerHTML = ''; }, 500);
-        resolve('done');
+        const searchGroup = document.getElementById('search-group-wrapper');
+        searchGroup.className = 'fadeout';
+        setTimeout(() => {
+            searchGroup.className = 'hidden'
+            resolve('search screen faded out');
+        }, 500);
+    })
+}
+
+function loadingScreen() {
+    return new Promise((resolve, reject) => {
+        const loadingDiv = document.getElementById('loading-container');
+        if (loadingDiv.classList.contains('hidden')) {
+            loadingDiv.classList.remove('hidden');
+            loadingDiv.classList.add('visible');
+            resolve('loading screen loaded');
+        }
+        else if (loadingDiv.classList.contains('visible')) {
+            loadingDiv.classList.remove('visible');
+            loadingDiv.classList.add('hidden');
+            resolve('loading screen hidden');
+        }
     })
 }
 
