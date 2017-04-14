@@ -1,13 +1,23 @@
 'use strict'
 
 const { ipcRenderer } = require('electron')
-const req = require('tinyreq')
+const request = require('request-promise')
 const cheerio = require('cheerio')
+
+const searchObj = {
+    searchVal: '',
+    amazon: { checked: true, list: [] },
+    ebay: { checked: true, list: [] }
+}
 
 document.getElementById("search_btn").addEventListener("click", (e) => {
     e.preventDefault();
-    const search_value = document.getElementById('txt_box').value;
-    if (search_value) {
+    searchObj.searchVal = document.getElementById('txt_box').value;
+    searchObj.amazon.checked = document.getElementById('amazonCheck').checked;
+    searchObj.ebay.checked = document.getElementById('ebayCheck').checked;
+
+    if (!searchObj.amazon.checked && !searchObj.ebay.checked) { errorHandler('nothingChecked'); }
+    else if (searchObj.searchVal) {
         fadeOutSearchScreen()
             .then((response) => {
                 console.log(response);
@@ -15,6 +25,17 @@ document.getElementById("search_btn").addEventListener("click", (e) => {
             })
             .then((response) => {
                 console.log(response);
+                if (!searchObj.ebay.checked) return Promise.resolve('skip');
+                const options = {
+                    method: 'GET',
+                    uri: `http://www.ebay.com/sch/i.html?_nkw=${searchObj.searchVal}`,
+                    resolveWithFullResponse: true,
+                    transform: body => cheerio.load(body)
+                }
+                return request(options)
+            })
+            .then((response) => {
+                if (response !== 'skip') scrapeEbay(response);
             })
             .catch((error) => {
                 console.log('Rejection: ' + error);
@@ -50,34 +71,21 @@ function loadingScreen() {
     })
 }
 
-function scrape(url) {
-    return new Promise((resolve, reject) => {
-        req(url, (err, requestedPage) => {
-            function searchNodes(node) {
-                if ($(node).children().length) {
-                    console.log(`Children of '${$.html(node)}' :\n`);
-                    $(node).children().each((i, elem) => {
-                        console.log(`#${i}: ${$.html(elem)}`);
-                        searchNodes(elem);
-                    })
-                    return;
-                }
-                console.log(`${$.html(node)} has no children`);
-            }
+function scrapeEbay($) {
+    $('#ListViewInner').children('li').each((index, element) => {
+        const item = {
+            link: '',
+            img: '',
+            title: '',
+            price: ''
+        }
+        item.link = $('.vip', element).attr('href');
+        item.img = $('img', element).attr('src');
+        item.title = $('.lvtitle', element).text();
+        item.price = $('.lvprice', element).text();
 
-            if (err) { reject('error in an http request'); }
-            const $ = cheerio.load(requestedPage);
-
-            searchNodes($('body'));
-            //resolve($.html());
-        });
+        searchObj.ebay.list.push(item);
     })
-}
-
-function processPage(page) {
-    //handle page contents
-    console.log(page);
-    document.getElementById('append').innerHTML = page;
 }
 
 function errorHandler(error) {
@@ -87,9 +95,9 @@ function errorHandler(error) {
 
 
 /* TODO
-1.txt box, przycisk szukaj, checkboxy do osobno allegro,amazon,ebay
-2.wciskam przycisk, sprawdzam czy pole txt nie jest puste
-3.jezeli txt niepuste to przesuwamy logo + wszystkielementy na gore, zaciemniamy oraz dajemy loading spinner
+DONE    1.txt box, przycisk szukaj, checkboxy do osobno allegro,amazon,ebay
+DONE    2.wciskam przycisk, sprawdzam czy pole txt nie jest puste
+DONE    3.dajemy loading spinner
 4.pobieramy allegro, scrapujemy, wyscrapowane dodajemy do tablicy
 5.pobieramy amazon ...
 6.pobieramy ebay...
