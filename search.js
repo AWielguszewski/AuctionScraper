@@ -50,8 +50,9 @@ document.getElementById("search_btn").addEventListener("click", (e) => {
             })
             .then((response) => {
                 if (response !== 'skip') scrapeAmazon(response);
-                //build html
-                //append html
+                buildList()
+                loadingScreen();
+                //fade in content
             })
             .catch((error) => {
                 console.log('Rejection: ' + error);
@@ -125,7 +126,77 @@ function scrapeAmazon($) {
     })
 }
 
+function buildList() {
+    const listContainer = document.getElementById('list-container');
+    if (searchObj.amazon.checked) {
+        searchObj.amazon.list.forEach((value, index) => {
+            const listItemWrapper = document.createElement('div');
+            listItemWrapper.setAttribute('id', `amazon-list-item-${index}`);
+            listItemWrapper.setAttribute('class', `amazon-list-item list-item`);
 
+            const listitemImg = document.createElement('div');
+            listitemImg.setAttribute('class', 'list-item-img');
+            listitemImg.style.backgroundImage = value.img;
+
+            const listItemPrice = document.createElement('div');
+            listItemPrice.setAttribute('class', 'list-item-price');
+            listItemPrice.appendChild(document.createTextNode(value.price));
+
+            const listItemTitle = document.createElement('div');
+            listItemTitle.setAttribute('class', 'list-item-title');
+            listItemTitle.appendChild(document.createTextNode(value.title));
+
+            const listitemLogo = document.createElement('div');
+            listitemLogo.setAttribute('class', 'list-item-logo list-item-amazon-logo');
+
+            listItemWrapper.appendChild(listitemImg);
+            listItemWrapper.appendChild(listItemPrice);
+            listItemWrapper.appendChild(listItemTitle);
+            listItemWrapper.appendChild(listitemLogo);
+
+            listContainer.appendChild(listItemWrapper);
+
+            document.getElementById(`amazon-list-item-${index}`).addEventListener('click', (e) => {
+                e.preventDefault();
+                //open new window
+            })
+        })
+    }
+    if (searchObj.ebay.checked) {
+        searchObj.ebay.list.forEach((value, index) => {
+            const listItemWrapper = document.createElement('div');
+            listItemWrapper.setAttribute('id', `ebay-list-item-${index}`);
+            listItemWrapper.setAttribute('class', `ebay-list-item list-item`);
+
+            const listitemImg = document.createElement('div');
+            listitemImg.setAttribute('class', 'list-item-img');
+            listitemImg.style.backgroundImage = value.img;
+
+            const listItemPrice = document.createElement('div');
+            listItemPrice.setAttribute('class', 'list-item-price');
+            listItemPrice.appendChild(document.createTextNode(value.price));
+
+            const listItemTitle = document.createElement('div');
+            listItemTitle.setAttribute('class', 'list-item-title');
+            listItemTitle.appendChild(document.createTextNode(value.title));
+
+            const listitemLogo = document.createElement('div');
+            listitemLogo.setAttribute('class', 'list-item-logo list-item-ebay-logo');
+
+            listItemWrapper.appendChild(listitemImg);
+            listItemWrapper.appendChild(listItemPrice);
+            listItemWrapper.appendChild(listItemTitle);
+            listItemWrapper.appendChild(listitemLogo);
+
+            listContainer.appendChild(listItemWrapper);
+
+            document.getElementById(`ebay-list-item-${index}`).addEventListener('click', (e) => {
+                e.preventDefault();
+                //open new window
+            })
+        })
+    }
+}
 
 function errorHandler(error) {
     //handle errors
