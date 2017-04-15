@@ -36,6 +36,22 @@ document.getElementById("search_btn").addEventListener("click", (e) => {
             })
             .then((response) => {
                 if (response !== 'skip') scrapeEbay(response);
+                if (!searchObj.amazon.checked) return Promise.resolve('skip');
+                const options = {
+                    method: 'GET',
+                    uri: `https://www.amazon.com/s/field-keywords=${searchObj.searchVal}`,
+                    headers: {
+                        'User-Agent': 'request-promise'
+                    },
+                    resolveWithFullResponse: true,
+                    transform: body => cheerio.load(body)
+                }
+                return request(options)
+            })
+            .then((response) => {
+                if (response !== 'skip') scrapeAmazon(response);
+                //build html
+                //append html
             })
             .catch((error) => {
                 console.log('Rejection: ' + error);
@@ -88,6 +104,29 @@ function scrapeEbay($) {
     })
 }
 
+
+function scrapeAmazon($) {
+    $('#s-results-list-atf').children('li').each((index, element) => {
+        const item = {
+            link: '',
+            img: '',
+            title: '',
+            price: ''
+        }
+        item.link = $('.a-link-normal', element).attr('href');
+        item.img = $('img', element).attr('src');
+        item.title = $('h2', element).data('attribute');
+        item.price += $('.sx-price-currency', element).text();
+        item.price += $('.sx-price-whole', element).text();
+        item.price += '.';
+        item.price += $('.sx-price-fractional', element).text();
+
+        searchObj.amazon.list.push(item);
+    })
+}
+
+
+
 function errorHandler(error) {
     //handle errors
     console.log(`ERROR: ${error}`);
@@ -98,10 +137,10 @@ function errorHandler(error) {
 DONE    1.txt box, przycisk szukaj, checkboxy do osobno allegro,amazon,ebay
 DONE    2.wciskam przycisk, sprawdzam czy pole txt nie jest puste
 DONE    3.dajemy loading spinner
-4.pobieramy allegro, scrapujemy, wyscrapowane dodajemy do tablicy
-5.pobieramy amazon ...
-6.pobieramy ebay...
-7.tworzymy liste elementow, dodajemy do niej na przemian po jednym z kazdego
+SKIPPED (to complicated)    4.pobieramy allegro, scrapujemy, wyscrapowane dodajemy do tablicy
+DONE    5.pobieramy amazon ...
+DONE    6.pobieramy ebay...
+7.budujemy html z lista
 8.spinner fade out
 9.dodajemy html z listą
 10.lista fade in
