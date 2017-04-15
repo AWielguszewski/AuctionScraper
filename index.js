@@ -12,7 +12,7 @@ let win
  */
 function createWindow() {
     win = new BrowserWindow({
-        minWidth: 700,
+        minWidth: 800,
         width: 800,
         height: 600,
         backgroundColor: '#FFFFFF',

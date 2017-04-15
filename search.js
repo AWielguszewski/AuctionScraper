@@ -130,13 +130,20 @@ function buildList() {
     const listContainer = document.getElementById('list-container');
     if (searchObj.amazon.checked) {
         searchObj.amazon.list.forEach((value, index) => {
-            const listItemWrapper = document.createElement('div');
-            listItemWrapper.setAttribute('id', `amazon-list-item-${index}`);
-            listItemWrapper.setAttribute('class', `amazon-list-item list-item`);
+            const listItemContainer = document.createElement('div');
+            listItemContainer.setAttribute('id', `amazon-list-item-${index}`);
+            listItemContainer.setAttribute('class', `amazon-list-item-container list-item-container`);
 
-            const listitemImg = document.createElement('div');
+            const listItemWrapper = document.createElement('div');
+            listItemWrapper.setAttribute('class', `amazon-list-item-wrapper list-item-wrapper`);
+
+            const listitemImgWrapper = document.createElement('div');
+            listitemImgWrapper.setAttribute('class', 'list-item-img-wrapper');
+
+            const listitemImg = document.createElement('img');
             listitemImg.setAttribute('class', 'list-item-img');
-            listitemImg.style.backgroundImage = value.img;
+            listitemImg.setAttribute('src', value.img);
+            listitemImgWrapper.appendChild(listitemImg);
 
             const listItemPrice = document.createElement('div');
             listItemPrice.setAttribute('class', 'list-item-price');
@@ -149,12 +156,13 @@ function buildList() {
             const listitemLogo = document.createElement('div');
             listitemLogo.setAttribute('class', 'list-item-logo list-item-amazon-logo');
 
-            listItemWrapper.appendChild(listitemImg);
-            listItemWrapper.appendChild(listItemPrice);
+            listItemWrapper.appendChild(listitemImgWrapper);
             listItemWrapper.appendChild(listItemTitle);
+            listItemWrapper.appendChild(listItemPrice);
             listItemWrapper.appendChild(listitemLogo);
 
-            listContainer.appendChild(listItemWrapper);
+            listItemContainer.appendChild(listItemWrapper);
+            listContainer.appendChild(listItemContainer);
 
             document.getElementById(`amazon-list-item-${index}`).addEventListener('click', (e) => {
                 e.preventDefault();
@@ -164,13 +172,21 @@ function buildList() {
     }
     if (searchObj.ebay.checked) {
         searchObj.ebay.list.forEach((value, index) => {
+            const listItemContainer = document.createElement('div');
+            listItemContainer.setAttribute('id', `ebay-list-item-${index}`);
+            listItemContainer.setAttribute('class', `ebay-list-item-container list-item-container`);
+
             const listItemWrapper = document.createElement('div');
             listItemWrapper.setAttribute('id', `ebay-list-item-${index}`);
-            listItemWrapper.setAttribute('class', `ebay-list-item list-item`);
+            listItemWrapper.setAttribute('class', `ebay-list-item-wrapper list-item-wrapper`);
 
-            const listitemImg = document.createElement('div');
+            const listitemImgWrapper = document.createElement('div');
+            listitemImgWrapper.setAttribute('class', 'list-item-img-wrapper');
+
+            const listitemImg = document.createElement('img');
             listitemImg.setAttribute('class', 'list-item-img');
-            listitemImg.style.backgroundImage = value.img;
+            listitemImg.setAttribute('src', value.img);
+            listitemImgWrapper.appendChild(listitemImg);
 
             const listItemPrice = document.createElement('div');
             listItemPrice.setAttribute('class', 'list-item-price');
@@ -183,12 +199,13 @@ function buildList() {
             const listitemLogo = document.createElement('div');
             listitemLogo.setAttribute('class', 'list-item-logo list-item-ebay-logo');
 
-            listItemWrapper.appendChild(listitemImg);
-            listItemWrapper.appendChild(listItemPrice);
+            listItemWrapper.appendChild(listitemImgWrapper);
             listItemWrapper.appendChild(listItemTitle);
+            listItemWrapper.appendChild(listItemPrice);
             listItemWrapper.appendChild(listitemLogo);
 
-            listContainer.appendChild(listItemWrapper);
+            listItemContainer.appendChild(listItemWrapper);
+            listContainer.appendChild(listItemContainer);
 
             document.getElementById(`ebay-list-item-${index}`).addEventListener('click', (e) => {
                 e.preventDefault();
