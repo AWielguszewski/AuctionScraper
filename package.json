@@ -1,6 +1,6 @@
 {
   "name": "prz_scrapper",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Auction Scrapper",
   "main": "index.js",
   "dependencies": {
@@ -15,7 +15,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "electron .",
-    "rebuild": ".\\node_modules\\.bin\\electron-rebuild.cmd"
+    "rebuild": ".\\node_modules\\.bin\\electron-rebuild.cmd",
+    "generate-docs": "jsdoc index.js search.js -d docs"
   },
   "repository": {
     "type": "git",

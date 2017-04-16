@@ -8,7 +8,9 @@ let win
 
 /**
  * Creating the main window.
- * 800x600
+ * 800x600 (minimum width set to 800 px)
+ * Loaded page: search-screen.html
+ * Window is printed on screen when 'ready-to-show' event fires
  */
 function createWindow() {
     win = new BrowserWindow({
@@ -51,6 +53,12 @@ app.on('activate', () => {
     }
 })
 
+/**
+ * (not used in this application)
+ * Event for Inter Process Communication
+ * Loads provided URL into the main window
+ * @param {string} url URL to load
+ */
 ipcMain.on('loadURL', (e, url) => {
     console.log('got msg');
     win.loadURL('file:///' +__dirname + url);
