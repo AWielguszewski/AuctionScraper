@@ -100,6 +100,7 @@ input[type=text],
 input[type=text]:hover,
 input[type=text]:active
 {
+    width: 100%;
     background-image: url('../assets/searchicon.png');
     background-position: 7px 7px; 
     background-repeat: no-repeat;
@@ -117,29 +118,6 @@ input[type=text]:focus{
 }
 /*END    TEXTBOX STYLES*/
 
-
-/*BUTTON STYLES*/
-input[type=button]
-{
-    border: 1px solid #1a1a1a;
-    background-color: #ffffff;
-    -webkit-transition: 0.5s;
-    transition: 0.5s;
-    text-align: center;
-    font-weight: bold;
-    padding: 10px;
-    outline: none;
-}
-
-input[type=button]:hover{
-    background-color: #fbb03b;
-}
-
-input[type=button]:active{
-    border: 1px solid #fbb03b;
-    opacity: 0.6;
-}
-/*END    BUTTON STYLES*/
 
 /*CHECKBOX STYLES*/
 input[type="checkbox"] {
@@ -201,10 +179,10 @@ input[type="checkbox"]:checked + label span {
     width: 90%;
     margin-left: 3%;
     background-color: white;
-    border: 1px solid black;
     height: 100%;
     -webkit-transition: 0.5s;
     transition: 0.5s;
+    box-shadow: 0px 0px 20px -5px black;
 }
 
 .list-item-wrapper:hover{
@@ -247,21 +225,73 @@ input[type="checkbox"]:checked + label span {
 
 .list-item-img {
     height: 100%;
+    width: 100%;
+    object-fit: contain;
 }
 
 .list-item-price {
-    width: 60%;
-    height: 50%;
-    margin-left: 20%;
-    font: 5vw bold;
+    font-weight: bolder;
     text-align: center;
 }
-.list-item-title {
+
+.list-item-title-price-wrapper {
+    float: left;
     width: 60%;
-    height: 50%;
-    margin-left: 20%;
+    height: 100%;
+}
+
+.list-item-title-wrapper {
+    height: 100%;
+    width: 60%;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.list-item-price-wrapper {
+    height: 100%;
+    width: 40%;
+    float: left;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.amazon-list-item-price-wrapper {
+    background-color: #FDFD96;
+}
+
+.ebay-list-item-price-wrapper {
+    background-color: #779ECB;
+}
+
+.list-item-title {
     font: 2vw bold;
-    text-shadow: 1px 1px darkgray;
     text-align: center;
+    padding: 5px;
+}
+
+.list-item-logo-wrapper {
+    float: left;
+    width: 20%;
+    height: 100%;
+}
+
+.list-item-logo {
+    width: 100%;
+    height: 100%;
+    -ms-transform: rotate(-45deg); /* IE 9 */
+    -webkit-transform: rotate(-45deg); /* Safari */
+    transform: rotate(-45deg);
+}
+
+.content-wrapper {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    margin: 0px 0px;
+    width: 100%;
+    height: 100%;
 }
 /*END    LIST  STYLES*/
