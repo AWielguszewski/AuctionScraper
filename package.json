@@ -1,5 +1,5 @@
 {
-  "name": "prz_scrapper",
+  "name": "auction_scraper",
   "version": "1.0.1",
   "description": "Auction Scrapper",
   "main": "index.js",
@@ -20,12 +20,12 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/AWielguszewski/PRz_Scrapper.git"
+    "url": "git+https://github.com/AWielguszewski/Auction_scraper.git"
   },
   "author": "AWielguszewski <roftii@gmail.com>",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/AWielguszewski/PRz_Scrapper/issues"
+    "url": "https://github.com/AWielguszewski/Auction_scraper/issues"
   },
-  "homepage": "https://github.com/AWielguszewski/PRz_Scrapper#readme"
+  "homepage": "https://github.com/AWielguszewski/Auction_scraper#readme"
 }
