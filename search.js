@@ -3,12 +3,15 @@
 const { ipcRenderer } = require('electron')
 const request = require('request-promise')
 const cheerio = require('cheerio')
+const { BrowserWindow } = require('electron').remote
 
 const searchObj = {
     searchVal: '',
     amazon: { checked: true, list: [] },
     ebay: { checked: true, list: [] }
 }
+
+document.getElementById('version').innerHTML = 'v ' + require('electron').remote.app.getVersion();
 
 document.addEventListener('keydown', (event) => {
     const keyName = event.key;
@@ -212,10 +215,10 @@ function buildList() {
     if (searchObj.amazon.checked) {
         searchObj.amazon.list.forEach((value, index) => {
             const listItemContainer = document.createElement('div');
-            listItemContainer.setAttribute('id', `amazon-list-item-${index}`);
             listItemContainer.setAttribute('class', `amazon-list-item-container list-item-container`);
 
             const listItemWrapper = document.createElement('div');
+            listItemWrapper.setAttribute('id', `amazon-list-item-${index}`);
             listItemWrapper.setAttribute('class', `amazon-list-item-wrapper list-item-wrapper`);
 
             const listitemImgWrapper = document.createElement('div');
@@ -261,7 +264,26 @@ function buildList() {
 
             document.getElementById(`amazon-list-item-${index}`).addEventListener('click', (e) => {
                 e.preventDefault();
-                //open new window
+                let win = new BrowserWindow({
+                    minWidth: 800,
+                    width: 800,
+                    height: 600,
+                    backgroundColor: '#FFFFFF',
+                    webPreferences: {
+                        devTools: true
+                    },
+                    autoHideMenuBar: true
+                })
+
+                win.loadURL(value.link);
+
+                win.on('closed', () => {
+                    win = null
+                })
+
+                win.once('ready-to-show', () => {
+                    win.show()
+                })
             })
         })
     }
@@ -318,7 +340,25 @@ function buildList() {
 
             document.getElementById(`ebay-list-item-${index}`).addEventListener('click', (e) => {
                 e.preventDefault();
-                //open new window
+                let win = new BrowserWindow({
+                    minWidth: 800,
+                    width: 800,
+                    height: 600,
+                    backgroundColor: '#FFFFFF',
+                    webPreferences: {
+                        devTools: true
+                    },
+                    autoHideMenuBar: true
+                })
+                win.loadURL(value.link);
+
+                win.on('closed', () => {
+                    win = null
+                })
+
+                win.once('ready-to-show', () => {
+                    win.show()
+                })
             })
         })
     }
@@ -328,17 +368,3 @@ function errorHandler(error) {
     //handle errors
     console.log(`ERROR: ${error}`);
 }
-
-
-/* TODO
-DONE    1.txt box, przycisk szukaj, checkboxy do osobno allegro,amazon,ebay
-DONE    2.wciskam przycisk, sprawdzam czy pole txt nie jest puste
-DONE    3.dajemy loading spinner
-SKIPPED (to complicated)    4.pobieramy allegro, scrapujemy, wyscrapowane dodajemy do tablicy
-DONE    5.pobieramy amazon ...
-DONE    6.pobieramy ebay...
-7.budujemy html z lista
-8.spinner fade out
-9.dodajemy html z listą
-10.lista fade in
-*/

@@ -177,6 +177,7 @@ input[type="checkbox"]:checked + label span {
 
 .list-item-wrapper{
     width: 90%;
+    cursor: pointer;
     margin-left: 3%;
     background-color: white;
     height: 100%;
@@ -276,6 +277,7 @@ input[type="checkbox"]:checked + label span {
     float: left;
     width: 20%;
     height: 100%;
+    overflow: hidden;
 }
 
 .list-item-logo {

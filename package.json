@@ -1,7 +1,7 @@
 {
   "name": "prz_scrapper",
-  "version": "0.0.0",
-  "description": "Web Scrapper",
+  "version": "1.0.0",
+  "description": "Auction Scrapper",
   "main": "index.js",
   "dependencies": {
     "cheerio": "^0.22.0",
